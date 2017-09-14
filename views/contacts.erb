@@ -4,6 +4,9 @@
     <h4>Contact: <%= contact.last_name%>, <%= contact.first%></h4>
     <h5>A <%= contact.job%> at <%= contact.company%></h5>
     <h5>Type of Contact: <%= contact.contact_type%></h5>
+    <form action='/address_specifics/<%= contact.id%>' method="post">
+      <button type="submit" class="btn"><%= contact.first%>'s Address</button>
+    </form>
 <% end %>
 <form action="/" method="post">
   <div class="form-group">

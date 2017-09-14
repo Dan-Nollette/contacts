@@ -1,5 +1,6 @@
 require 'rspec'
 require 'contact'
+require 'address'
 require 'pry'
 
 describe("Contact") do
@@ -41,13 +42,13 @@ describe("Contact") do
     it("saves a contact to the @@contacts variable") do
       contact1 = Contact.new({:first_name=> "John", :last_name=> "Doe", :job=> "Web Developer", :company=> "Amazon", :contact_type=> "Business"})
       contact2 = Contact.new({:first_name=> "Jane", :last_name=> "Doe", :job=> "Project Manager", :company=> "Google", :contact_type=> "Buddy"})
-      #Contact.clear
+      Contact.clear
       contact1.save
       contact2.save
       expect(Contact.all).to(eq([contact1, contact2]))
     end
   end
-  describe("#clear") do
+  describe(".clear") do
     it("clears the @@contacts class variable") do
       contact1 = Contact.new({:first_name=> "John", :last_name=> "Doe", :job=> "Web Developer", :company=> "Amazon", :contact_type=> "Business"})
       contact2 = Contact.new({:first_name=> "Jane", :last_name=> "Doe", :job=> "Project Manager", :company=> "Google", :contact_type=> "Buddy"})
@@ -55,6 +56,26 @@ describe("Contact") do
       contact2.save
       Contact.clear
       expect(Contact.all).to(eq([]))
+    end
+  end
+
+  describe("#id") do
+    it("increments an id by 1 each time a new item is added") do
+      contact1 = Contact.new({:first_name=> "John", :last_name=> "Doe", :job=> "Web Developer", :company=> "Amazon", :contact_type=> "Business"})
+      contact1.save
+      contact2 = Contact.new({:first_name=> "Jane", :last_name=> "Doe", :job=> "Web Developer", :company=> "Amazon", :contact_type=> "Business"})
+      contact2.save
+      expect(contact1.id()).to(eq(1))
+      expect(contact2.id()).to(eq(2))
+    end
+  end
+
+  describe(".find") do
+    it("finds a contact by id") do
+      Contact.clear
+      contact1 = Contact.new({:first_name=> "John", :last_name=> "Doe", :job=> "Web Developer", :company=> "Amazon", :contact_type=> "Business"})
+      contact1.save
+      expect(Contact.find(1)).to(eq(contact1))
     end
   end
 end

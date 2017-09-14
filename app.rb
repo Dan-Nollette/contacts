@@ -31,3 +31,8 @@ post('/clear') do
   @list = Contact.all
   erb(:contacts)
 end
+
+post('/address_specifics/:id') do
+  @contact = Contact.find(params[:id])
+  erb(:address_specifics)
+end
